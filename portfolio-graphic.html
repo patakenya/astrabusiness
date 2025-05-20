@@ -1,51 +1,13 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Graphic Design Portfolio - Astra Consultants Kenya</title>
-    <meta name="description" content="Discover Astra Consultants' graphic design portfolio, featuring logo design, branding, print, digital, packaging, advertising, and more for Kenyan businesses.">
-    <meta name="keywords" content="graphic design portfolio Kenya, logo design Nairobi, branding agency Kenya, print design Kenya, digital design Nairobi, packaging design Kenya">
+    <meta name="description" content="Explore Astra Consultants' graphic design portfolio, showcasing logo design, corporate branding, social media graphics, event collateral, and more for Kenyan businesses.">
+    <meta name="keywords" content="graphic design portfolio Kenya, logo design Nairobi, corporate branding Kenya, social media graphics Kenya, event posters Nairobi, branding agency Kenya">
     <meta name="author" content="Astra Consultants">
+    <meta name="robots" content="index, follow">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
@@ -74,21 +36,112 @@
             right: 24px;
             z-index: 999;
         }
+        .animate-pulse-slow {
+            animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .portfolio-item { display: block; }
+        .portfolio-item.hidden { display: none; }
+        .hero-section {
+            
+            background-size: cover;
+            background-position: center;
+        }
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+        }
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        .slider-nav button {
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
     </style>
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        "name": "Astra Consultants Graphic Design Portfolio",
+        "description": "Portfolio showcasing graphic design projects including logo design, corporate branding, social media graphics, and event collateral for Kenyan businesses.",
+        "creator": {
+            "@type": "Organization",
+            "name": "Astra Consultants",
+            "url": "https://astraconsultants.co.ke",
+            "logo": "https://astraconsultants.co.ke/images/astra2.png"
+        },
+        "url": "https://astraconsultants.co.ke/portfolio-graphic.html",
+        "keywords": ["graphic design portfolio Kenya", "logo design Nairobi", "corporate branding Kenya", "social media graphics Kenya"],
+        "image": ["https://astraconsultants.co.ke/images/logo.png", "https://astraconsultants.co.ke/images/boutique.png"]
+    }
+    </script>
 </head>
 <body class="bg-gray-50">
+    <!-- XLSX Processing Script -->
+    <script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+            return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+            if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+                try {
+                    var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                    var firstSheetName = workbook.SheetNames[0];
+                    var worksheet = workbook.Sheets[firstSheetName];
+                    var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                    var filteredData = jsonData.filter(row => row.some(filledCell));
+                    var headerRowIndex = filteredData.findIndex((row, index) =>
+                        row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                    );
+                    if (headerRowIndex === -1 || headerRowIndex > 25) {
+                        headerRowIndex = 0;
+                    }
+                    var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex));
+                    csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                    return csv;
+                } catch (e) {
+                    console.error(e);
+                    return "";
+                }
+            }
+            return gk_fileData[filename] || "";
+        }
+    </script>
+
     <!-- Header -->
     <header class="fixed top-0 left-0 w-full bg-white shadow-md z-50">
         <div class="container mx-auto px-4 py-3 flex items-center justify-between">
             <a href="index.html" class="flex items-center">
-                <img src="images/astra2.png" alt="logo" class="h-10">
+                <img src="images/astra2.png" alt="Astra Consultants Logo" class="h-10">
             </a>
             <nav class="hidden md:flex items-center space-x-8">
                 <a href="index.html" class="text-gray-700 font-medium hover:text-primary transition">Home</a>
                 <a href="about.html" class="text-gray-700 font-medium hover:text-primary transition">About Us</a>
                 <a href="services.html" class="text-gray-700 font-medium hover:text-primary transition">Services</a>
                 <a href="portfolio-graphic.html" class="text-primary font-medium hover:text-primary/80 transition">Graphic Portfolio</a>
-                <a href="portfolio-web.html" class="text-gray-700 font-medium hover:text-primary/80 transition">Web Portfolio</a>
+                <a href="portfolio-web.html" class="text-gray-700 font-medium hover:text-primary transition">Web Portfolio</a>
                 <a href="blog.html" class="text-gray-700 font-medium hover:text-primary transition">Blog</a>
                 <a href="contact.html" class="text-gray-700 font-medium hover:text-primary transition">Contact</a>
                 <a href="booking.html" class="bg-primary text-white px-5 py-2 !rounded-button font-medium hover:bg-primary/90 transition">Book Now</a>
@@ -114,10 +167,63 @@
     <!-- Main Content -->
     <main class="pt-16">
         <!-- Hero Section -->
-        <section class="bg-gray-100 py-20">
-            <div class="container mx-auto px-4 text-center">
-                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Graphic Design Portfolio</h1>
-                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Explore our diverse graphic design projects, from logos and branding to print, digital, packaging, and environmental designs, crafted for Kenyan businesses.</p>
+        <section class="hero-section py-8 bg-gray-100 text-gray-900 relative">
+            <div class="container mx-auto px-4 flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 text-gray-900 mb-8 lg:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4" id="dynamic-greeting">Showcase Your Brand with Stunning Designs</h1>
+                    <p class="text-lg mb-6 max-w-md">Explore our graphic design portfolio, featuring logos, branding, social media graphics, and more for Kenyan businesses. Trusted by 500+ clients.</p>
+                    <div class="flex items-center mb-6">
+                        <span class="text-sm bg-secondary text-gray-900 px-3 py-1 rounded-full mr-2">Limited Offer!</span>
+                        <span class="text-sm" id="countdown-timer"></span>
+                    </div>
+                    <a href="booking.html" class="bg-primary text-white px-8 py-3 !rounded-button font-medium hover:bg-primary/90 transition animate-pulse-slow">Get a Free Quote</a>
+                </div>
+                <div class="lg:w-1/2">
+                    <div class="slider-container">
+                        <div class="slider">
+                            <div class="slide">
+                                <img src="images/logo.png" alt="TechVision Logo Mockup" class="w-3/4 mx-auto rounded-lg shadow-lg" loading="lazy">
+                            </div>
+                            <div class="slide">
+                                <img src="images/boutique.png" alt="Bloom Boutique Branding Mockup" class="w-3/4 mx-auto rounded-lg shadow-lg" loading="lazy">
+                            </div>
+                            <div class="slide">
+                                <img src="images/bronchure.png" alt="Savanna Tours Brochure Mockup" class="w-3/4 mx-auto rounded-lg shadow-lg" loading="lazy">
+                            </div>
+                            <div class="slide">
+                                <img src="images/mockup.png" alt="Savanna Tours Brochure Mockup" class="w-3/4 mx-auto rounded-lg shadow-lg" loading="lazy">
+                            </div>
+                            <div class="slide">
+                                <img src="images/design.png" alt="Savanna Tours Brochure Mockup" class="w-3/4 mx-auto rounded-lg shadow-lg" loading="lazy">
+                            </div>
+                            <div class="slide">
+                                <img src="images/dede.png" alt="Savanna Tours Brochure Mockup" class="w-3/4 mx-auto rounded-lg shadow-lg" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="slider-nav">
+                            <button onclick="prevSlide()"><i class="ri-arrow-left-line ri-lg"></i></button>
+                            <button onclick="nextSlide()"><i class="ri-arrow-right-line ri-lg"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Filters -->
+        <section class="py-8 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button class="bg-primary text-white px-4 py-2 !rounded-button font-medium hover:bg-primary/90 transition" data-filter="all">All</button>
+                    <button class="bg-gray-200 text-gray-700 px-4 py-2 !rounded-button font-medium hover:bg-primary hover:text-white transition" data-filter="logo">Logo Design</button>
+                    <button class="bg-gray-200 text-gray-700 px-4 py-2 !rounded-button font-medium hover:bg-primary hover:text-white transition" data-filter="branding">Branding</button>
+                    <button class="bg-gray-200 text-gray-700 px-4 py-2 !rounded-button font-medium hover:bg-primary hover:text-white transition" data-filter="print">Print Design</button>
+                    <button class="bg-gray-200 text-gray-700 px-4 py-2 !rounded-button font-medium hover:bg-primary hover:text-white transition" data-filter="digital">Digital Design</button>
+                    <button class="bg-gray-200 text-gray-700 px-4 py-2 !rounded-button font-medium hover:bg-primary hover:text-white transition" data-filter="packaging">Packaging</button>
+                    <button class="bg-gray-200 text-gray-700 px-4 py-2 !rounded-button font-medium hover:bg-primary hover:text-white transition" data-filter="advertising">Advertising</button>
+                    <button class="bg-gray-200 text-gray-700 px-4 py-2 !rounded-button font-medium hover:bg-primary hover:text-white transition" data-filter="publication">Publication</button>
+                    <button class="bg-gray-200 text-gray-700 px-4 py-2 !rounded-button font-medium hover:bg-primary hover:text-white transition" data-filter="motion">Motion Graphics</button>
+                    
+                </div>
             </div>
         </section>
 
@@ -127,18 +233,18 @@
                 <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center">Our Graphic Design Work</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Logo Design -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
-                        <img src="images/logo.png" alt="TechVision Logo Design" class="w-full h-48 object-cover">
+                    <div class="portfolio-item bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition" data-category="logo">
+                        <img src="images/logo.png" alt="TechVision Logo Design for Kenyan Tech Startup" class="w-full h-48 object-cover" loading="lazy">
                         <div class="p-6">
                             <h3 class="text-xl font-semibold text-gray-900 mb-2">Logo Design: TechVision</h3>
                             <p class="text-gray-600 mb-4">Created a sleek logo for TechVision Solutions, using minimalist typography and blue-gold accents to convey innovation.</p>
                             <p class="text-gray-600 italic mb-4">“The logo defines our brand!” – James Mwangi, CEO</p>
-                            <a href="images/booking.html" class="text-primary font-medium hover:underline">Get a Quote</a>
+                            <a href="booking.html" class="text-primary font-medium hover:underline">Get a Quote</a>
                         </div>
                     </div>
                     <!-- Branding -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
-                        <img src="images/boutique.png" alt="Bloom Boutique Branding" class="w-full h-48 object-cover">
+                    <div class="portfolio-item bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition" data-category="branding">
+                        <img src="images/boutique.png" alt="Bloom Boutique Corporate Branding in Nairobi" class="w-full h-48 object-cover" loading="lazy">
                         <div class="p-6">
                             <h3 class="text-xl font-semibold text-gray-900 mb-2">Branding: Bloom Boutique</h3>
                             <p class="text-gray-600 mb-4">Developed a cohesive brand identity for Bloom Boutique, including logo, color palette, and stationery, to enhance market presence.</p>
@@ -147,8 +253,8 @@
                         </div>
                     </div>
                     <!-- Print Design (Brochure) -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
-                        <img src="images/bronchure.png" alt="Savanna Tours Brochure" class="w-full h-48 object-cover">
+                    <div class="portfolio-item bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition" data-category="print">
+                        <img src="images/bronchure.png" alt="Savanna Tours Brochure Design for Kenyan Tourism" class="w-full h-48 object-cover" loading="lazy">
                         <div class="p-6">
                             <h3 class="text-xl font-semibold text-gray-900 mb-2">Print Design: Savanna Tours Brochure</h3>
                             <p class="text-gray-600 mb-4">Designed a vibrant brochure for Savanna Tours, highlighting tour packages with engaging visuals and clear layouts.</p>
@@ -157,8 +263,8 @@
                         </div>
                     </div>
                     <!-- Print Design (Business Cards) -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
-                        <img src="images/card.png" alt="Nexus Consulting Business Cards" class="w-full h-48 object-cover">
+                    <div class="portfolio-item bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition" data-category="print">
+                        <img src="images/card.png" alt="Nexus Consulting Business Cards for Kenyan Professionals" class="w-full h-48 object-cover" loading="lazy">
                         <div class="p-6">
                             <h3 class="text-xl font-semibold text-gray-900 mb-2">Print Design: Nexus Consulting Business Cards</h3>
                             <p class="text-gray-600 mb-4">Crafted professional business cards for Nexus Consulting, with elegant typography and premium finishes.</p>
@@ -167,8 +273,8 @@
                         </div>
                     </div>
                     <!-- Digital Design (Social Media Graphics) -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
-                        <img src="images/social.png" alt="Trendy Threads Social Media" class="w-full h-48 object-cover">
+                    <div class="portfolio-item bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition" data-category="digital">
+                        <img src="images/social.png" alt="Trendy Threads Social Media Graphics for Kenyan Retail" class="w-full h-48 object-cover" loading="lazy">
                         <div class="p-6">
                             <h3 class="text-xl font-semibold text-gray-900 mb-2">Digital Design: Trendy Threads Social Media</h3>
                             <p class="text-gray-600 mb-4">Produced engaging social media graphics for Trendy Threads, optimized for Instagram and Facebook campaigns.</p>
@@ -177,8 +283,8 @@
                         </div>
                     </div>
                     <!-- Packaging Design -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
-                        <img src="images/bag.png" alt="Kipepeo Coffee Packaging" class="w-full h-48 object-cover">
+                    <div class="portfolio-item bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition" data-category="packaging">
+                        <img src="images/bag.png" alt="Kipepeo Coffee Packaging Design for Kenyan Market" class="w-full h-48 object-cover" loading="lazy">
                         <div class="p-6">
                             <h3 class="text-xl font-semibold text-gray-900 mb-2">Packaging Design: Kipepeo Coffee</h3>
                             <p class="text-gray-600 mb-4">Designed eco-friendly packaging for Kipepeo Coffee, with bold visuals to stand out on retail shelves.</p>
@@ -187,8 +293,8 @@
                         </div>
                     </div>
                     <!-- Advertising Design (Billboard) -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
-                        <img src="images/bill.png" alt="Skyline Realty Billboard" class="w-full h-48 object-cover">
+                    <div class="portfolio-item bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition" data-category="advertising">
+                        <img src="images/bill.png" alt="Skyline Realty Billboard Design in Nairobi" class="w-full h-48 object-cover" loading="lazy">
                         <div class="p-6">
                             <h3 class="text-xl font-semibold text-gray-900 mb-2">Advertising Design: Skyline Realty Billboard</h3>
                             <p class="text-gray-600 mb-4">Created a striking billboard for Skyline Realty, with bold typography and visuals for maximum impact.</p>
@@ -197,8 +303,8 @@
                         </div>
                     </div>
                     <!-- Publication Design (Magazine) -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
-                        <img src="images/card.png" alt="Kenya Business Journal" class="w-full h-48 object-cover">
+                    <div class="portfolio-item bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition" data-category="publication">
+                        <img src="images/mag.png" alt="Kenya Business Journal Magazine Layout" class="w-full h-48 object-cover" loading="lazy">
                         <div class="p-6">
                             <h3 class="text-xl font-semibold text-gray-900 mb-2">Publication Design: Kenya Business Journal</h3>
                             <p class="text-gray-600 mb-4">Designed a modern magazine layout for Kenya Business Journal, with clean typography and vibrant imagery.</p>
@@ -207,8 +313,8 @@
                         </div>
                     </div>
                     <!-- Motion Graphics -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
-                        <img src="images/bill.png" alt="Innovate Tech Motion Graphics" class="w-full h-48 object-cover">
+                    <div class="portfolio-item bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition" data-category="motion">
+                        <img src="images/video.png" alt="Innovate Tech Motion Graphics for Kenyan Tech" class="w-full h-48 object-cover" loading="lazy">
                         <div class="p-6">
                             <h3 class="text-xl font-semibold text-gray-900 mb-2">Motion Graphics: Innovate Tech</h3>
                             <p class="text-gray-600 mb-4">Produced dynamic motion graphics for Innovate Tech’s promotional video, enhancing brand engagement.</p>
@@ -216,36 +322,39 @@
                             <a href="booking.html" class="text-primary font-medium hover:underline">Get a Quote</a>
                         </div>
                     </div>
-                    <!-- Environmental Design (Signage) -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
-                        <img src="images/graphic.png" alt="Unity Plaza Signage" class="w-full h-48 object-cover">
+                    <!-- Social Media Graphics (New) -->
+                    <div class="portfolio-item bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition" data-category="digital">
+                        <img src="images/socialm.png" alt="Pulse Fitness Social Media Graphics for Kenyan Gym" class="w-full h-48 object-cover" loading="lazy">
                         <div class="p-6">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Environmental Design: Unity Plaza Signage</h3>
-                            <p class="text-gray-600 mb-4">Designed clear and modern signage for Unity Plaza, improving navigation and brand visibility.</p>
-                            <p class="text-gray-600 italic mb-4">“Transformed our space!” – Michael Omondi, Facility Manager</p>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Digital Design: Pulse Fitness Social Media</h3>
+                            <p class="text-gray-600 mb-4">Designed vibrant social media graphics for Pulse Fitness, boosting engagement on Instagram and Twitter with bold visuals.</p>
+                            <p class="text-gray-600 italic mb-4">“Our campaigns went viral!” – Kevin Otieno, Marketing Manager</p>
                             <a href="booking.html" class="text-primary font-medium hover:underline">Get a Quote</a>
                         </div>
                     </div>
-
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
-                        <img src="images/graphic.png" alt="Unity Plaza Signage" class="w-full h-48 object-cover">
+                    <!-- Corporate Branding Package (New) -->
+                    <div class="portfolio-item bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition" data-category="branding">
+                        <img src="images/mockup.png" alt="Horizon Enterprises Corporate Branding in Kenya" class="w-full h-48 object-cover" loading="lazy">
                         <div class="p-6">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Environmental Design: Unity Plaza Signage</h3>
-                            <p class="text-gray-600 mb-4">Designed clear and modern signage for Unity Plaza, improving navigation and brand visibility.</p>
-                            <p class="text-gray-600 italic mb-4">“Transformed our space!” – Michael Omondi, Facility Manager</p>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Branding: Horizon Enterprises</h3>
+                            <p class="text-gray-600 mb-4">Developed a full corporate branding package for Horizon Enterprises, including logo, business cards, and brand guidelines.</p>
+                            <p class="text-gray-600 italic mb-4">“Unified our brand identity!” – Lillian Achieng, CEO</p>
                             <a href="booking.html" class="text-primary font-medium hover:underline">Get a Quote</a>
                         </div>
                     </div>
-
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
-                        <img src="images/graphic.png" alt="Unity Plaza Signage" class="w-full h-48 object-cover">
+                    <!-- Event Collateral (New) -->
+                    <div class="portfolio-item bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition" data-category="print">
+                        <img src="images/event.png" alt="Nairobi Tech Summit Event Posters" class="w-full h-48 object-cover" loading="lazy">
                         <div class="p-6">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Environmental Design: Unity Plaza Signage</h3>
-                            <p class="text-gray-600 mb-4">Designed clear and modern signage for Unity Plaza, improving navigation and brand visibility.</p>
-                            <p class="text-gray-600 italic mb-4">“Transformed our space!” – Michael Omondi, Facility Manager</p>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Print Design: Nairobi Tech Summit Posters</h3>
+                            <p class="text-gray-600 mb-4">Created eye-catching posters and flyers for Nairobi Tech Summit, driving attendance with bold designs.</p>
+                            <p class="text-gray-600 italic mb-4">“Record turnout thanks to these!” – Brian Mutua, Organizer</p>
                             <a href="booking.html" class="text-primary font-medium hover:underline">Get a Quote</a>
                         </div>
                     </div>
+                </div>
+                <div class="text-center mt-12">
+                    <p class="text-gray-600"><i class="ri-shield-check-line text-primary mr-2"></i>Trusted by 500+ Kenyan Businesses</p>
                 </div>
             </div>
         </section>
@@ -253,9 +362,12 @@
         <!-- CTA Banner -->
         <section class="py-16 bg-gradient-to-r from-primary to-blue-800 text-white">
             <div class="container mx-auto px-4 text-center">
-                <h2 class="text-3xl font-bold mb-6">Transform Your Brand with Our Designs</h2>
-                <p class="text-lg mb-8 max-w-2xl mx-auto">Contact us to create stunning graphic designs tailored to your business needs.</p>
-                <a href="booking.html" class="bg-white text-primary px-6 py-3 !rounded-button font-medium hover:bg-gray-100 transition">Book a Consultation</a>
+                <h2 class="text-3xl font-bold mb-6">Elevate Your Brand with Astra Consultants</h2>
+                <p class="text-lg mb-8 max-w-2xl mx-auto">Book a free consultation to create stunning graphic designs tailored to your Kenyan business.</p>
+                <div class="flex justify-center space-x-4">
+                    <a href="booking.html" class="bg-white text-primary px-6 py-3 !rounded-button font-medium hover:bg-gray-100 transition animate-pulse-slow">Book a Consultation</a>
+                    <a href="contact.html" class="bg-transparent border border-white text-white px-6 py-3 !rounded-button font-medium hover:bg-white hover:text-primary transition">Contact Us</a>
+                </div>
             </div>
         </section>
     </main>
@@ -266,20 +378,20 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
                 <div>
                     <div class="flex items-center mb-6">
-                        <img src="images/astra3.png" alt="logo" class="h-10">
+                        <img src="images/astra3.png" alt="Astra Consultants Logo" class="h-10">
                     </div>
                     <p class="text-gray-400 mb-6">Your trusted partner for business registration, branding, and growth strategies in Kenya.</p>
                     <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition">
+                        <a href="https://facebook.com/astraconsultants" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition" aria-label="Astra Consultants on Facebook">
                             <i class="ri-facebook-fill"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition">
+                        <a href="https://twitter.com/astraconsultants" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition" aria-label="Astra Consultants on Twitter">
                             <i class="ri-twitter-fill"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition">
+                        <a href="https://instagram.com/astraconsultants" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition" aria-label="Astra Consultants on Instagram">
                             <i class="ri-instagram-fill"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition">
+                        <a href="https://linkedin.com/company/astraconsultants" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition" aria-label="Astra Consultants on LinkedIn">
                             <i class="ri-linkedin-fill"></i>
                         </a>
                     </div>
@@ -320,13 +432,13 @@
                             <div class="w-5 h-5 flex items-center justify-center mt-1 mr-3">
                                 <i class="ri-phone-line text-primary"></i>
                             </div>
-                            <span class="text-gray-400">+254 715 135 141</span>
+                            <a href="tel:+254715135141" class="text-gray-400 hover:text-white transition">+254 715 135 141</a>
                         </li>
                         <li class="flex items-start">
                             <div class="w-5 h-5 flex items-center justify-center mt-1 mr-3">
                                 <i class="ri-mail-line text-primary"></i>
                             </div>
-                            <span class="text-gray-400">kimemiaedwin1@gmail.com</span>
+                            <a href="mailto:kimemiaedwin1@gmail.com" class="text-gray-400 hover:text-white transition">kimemiaedwin1@gmail.com</a>
                         </li>
                         <li class="flex items-start">
                             <div class="w-5 h-5 flex items-center justify-center mt-1 mr-3">
@@ -351,12 +463,13 @@
     </footer>
 
     <!-- WhatsApp Button -->
-    <a href="https://wa.me/254715135141?text=Hello%20Astra%20Consultants,%20I'm%20interested%20in%20your%20graphic%20design%20services." class="whatsapp-button w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition">
+    <a href="https://wa.me/254715135141?text=Hello%20Astra%20Consultants,%20I%27m%20interested%20in%20your%20graphic%20design%20services." class="whatsapp-button w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition" aria-label="Contact Astra Consultants via WhatsApp">
         <i class="ri-whatsapp-fill ri-xl text-white"></i>
     </a>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Menu Toggle
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
             mobileMenuButton.addEventListener('click', function() {
@@ -364,6 +477,67 @@
                 mobileMenuButton.innerHTML = mobileMenu.classList.contains('hidden') ?
                     '<i class="ri-menu-line ri-lg"></i>' : '<i class="ri-close-line ri-lg"></i>';
             });
+
+            // Dynamic Greeting
+            const greetingElement = document.getElementById('dynamic-greeting');
+            const hour = new Date().getHours();
+            let greeting = hour < 12 ? 'Good Morning!' : hour < 18 ? 'Good Afternoon!' : 'Good Evening!';
+            greetingElement.innerHTML = `${greeting} Showcase Your Brand with Stunning Designs`;
+
+            // Countdown Timer
+            const countdownElement = document.getElementById('countdown-timer');
+            let timeLeft = 24 * 60 * 60; // 24 hours in seconds
+            function updateTimer() {
+                const hours = Math.floor(timeLeft / 3600);
+                const minutes = Math.floor((timeLeft % 3600) / 60);
+                const seconds = timeLeft % 60;
+                countdownElement.textContent = `Free Quote Ends in ${hours}h ${minutes}m ${seconds}s`;
+                timeLeft--;
+                if (timeLeft < 0) timeLeft = 24 * 60 * 60;
+            }
+            updateTimer();
+            setInterval(updateTimer, 1000);
+
+            // Portfolio Filter
+            const filterButtons = document.querySelectorAll('[data-filter]');
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('bg-primary', 'text-white');
+                        btn.classList.add('bg-gray-200', 'text-gray-700');
+                    });
+                    this.classList.remove('bg-gray-200', 'text-gray-700');
+                    this.classList.add('bg-primary', 'text-white');
+                    portfolioItems.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                            item.classList.remove('hidden');
+                        } else {
+                            item.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            // Slider Functionality
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.slide');
+            const slider = document.querySelector('.slider');
+            function showSlide(index) {
+                if (index >= slides.length) currentSlide = 0;
+                if (index < 0) currentSlide = slides.length - 1;
+                slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+            }
+            window.nextSlide = function() {
+                currentSlide++;
+                showSlide(currentSlide);
+            };
+            window.prevSlide = function() {
+                currentSlide--;
+                showSlide(currentSlide);
+            };
+            setInterval(nextSlide, 5000); // Auto-slide every 5 seconds
         });
     </script>
 </body>

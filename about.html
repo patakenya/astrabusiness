@@ -1,51 +1,13 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Astra Consultants - Business Growth Experts in Kenya</title>
-    <meta name="description" content="Learn about Astra Consultants, your trusted partner for company registration, branding, and digital solutions in Kenya. Discover our mission and expertise.">
-    <meta name="keywords" content="about Astra Consultants, company registration Kenya, branding agency Kenya, business growth Kenya">
+    <meta name="description" content="Learn about Astra Consultants, Kenya’s leading consultancy for company registration, graphic design, web design, and digital solutions. Discover our mission, team, and expertise.">
+    <meta name="keywords" content="about Astra Consultants, business consultancy Kenya, company registration Nairobi, graphic design Kenya, web design Kenya, branding agency Kenya">
     <meta name="author" content="Astra Consultants">
+    <meta name="robots" content="index, follow">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
@@ -74,14 +36,100 @@
             right: 24px;
             z-index: 999;
         }
+        .animate-pulse-slow {
+            animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .hero-section {
+        
+            background-size: cover;
+            background-position: center;
+        }
+        .gallery-item:hover .overlay {
+            opacity: 1;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Astra Consultants",
+        "url": "https://astraconsultants.co.ke",
+        "logo": "https://astraconsultants.co.ke/images/astra2.png",
+        "description": "Astra Consultants is a leading consultancy in Kenya, offering company registration, graphic design, web design, and digital solutions.",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Nairobi",
+            "addressCountry": "KE"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+254715135141",
+            "contactType": "Customer Service",
+            "email": "kimemiaedwin1@gmail.com"
+        },
+        "sameAs": [
+            "https://facebook.com/astraconsultants",
+            "https://twitter.com/astraconsultants",
+            "https://instagram.com/astraconsultants",
+            "https://linkedin.com/company/astraconsultants"
+        ]
+    }
+    </script>
 </head>
 <body class="bg-gray-50">
+    <!-- XLSX Processing Script -->
+    <script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+            return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+            if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+                try {
+                    var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                    var firstSheetName = workbook.SheetNames[0];
+                    var worksheet = workbook.Sheets[firstSheetName];
+                    var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                    var filteredData = jsonData.filter(row => row.some(filledCell));
+                    var headerRowIndex = filteredData.findIndex((row, index) =>
+                        row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                    );
+                    if (headerRowIndex === -1 || headerRowIndex > 25) {
+                        headerRowIndex = 0;
+                    }
+                    var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex));
+                    csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                    return csv;
+                } catch (e) {
+                    console.error(e);
+                    return "";
+                }
+            }
+            return gk_fileData[filename] || "";
+        }
+    </script>
+
     <!-- Header -->
     <header class="fixed top-0 left-0 w-full bg-white shadow-md z-50">
         <div class="container mx-auto px-4 py-3 flex items-center justify-between">
             <a href="index.html" class="flex items-center">
-                <img src="images/astra2.png" alt="logo" class="h-10">
+                <img src="images/astra2.png" alt="Astra Consultants Logo" class="h-10">
             </a>
             <nav class="hidden md:flex items-center space-x-8">
                 <a href="index.html" class="text-gray-700 font-medium hover:text-primary transition">Home</a>
@@ -114,10 +162,15 @@
     <!-- Main Content -->
     <main class="pt-16">
         <!-- Hero Section -->
-        <section class="bg-gray-100 py-20">
+        <section class="hero-section py-24 bg-gray-100 text-gray-900">
             <div class="container mx-auto px-4 text-center">
-                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">About Astra Consultants</h1>
-                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Your trusted partner for company registration, branding, and digital solutions in Kenya, dedicated to empowering businesses for success.</p>
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">About Astra Consultants</h1>
+                <p class="text-lg mb-6 max-w-3xl mx-auto">Kenya’s leading consultancy for company registration, graphic design, web design, and digital solutions. Trusted by 500+ businesses in Nairobi and beyond.</p>
+                <div class="flex justify-center items-center mb-6">
+                    <span class="text-sm bg-secondary text-gray-900 px-3 py-1 rounded-full mr-2">Limited Offer!</span>
+                    <span class="text-sm" id="countdown-timer"></span>
+                </div>
+                <a href="booking.html" class="bg-primary text-white px-8 py-3 !rounded-button font-medium hover:bg-primary/90 transition animate-pulse-slow">Book a Free Consultation</a>
             </div>
         </section>
 
@@ -126,32 +179,226 @@
             <div class="container mx-auto px-4">
                 <div class="flex flex-col lg:flex-row items-center gap-12">
                     <div class="lg:w-1/2">
-                        <img src="images/office.png" alt="Astra Consultants Office" class="rounded-lg shadow-lg w-full h-auto object-cover">
+                        <img src="images/office.png" alt="Astra Consultants Nairobi Office" class="rounded-lg shadow-lg w-full h-auto object-cover" loading="lazy">
                     </div>
                     <div class="lg:w-1/2">
                         <h2 class="text-3xl font-bold text-gray-900 mb-6">Our Story</h2>
-                        <p class="text-gray-600 mb-4">Founded in Nairobi, Astra Consultants was established to simplify the complexities of starting and growing a business in Kenya. We recognized the challenges entrepreneurs face, from navigating legal requirements to building a strong brand identity.</p>
-                        <p class="text-gray-600">Our team combines expertise in company registration, graphic design, tax compliance, and digital marketing to provide holistic solutions. We’re passionate about helping Kenyan businesses thrive, offering personalized services that drive growth and success.</p>
+                        <p class="text-gray-600 mb-4">Founded in Nairobi, Astra Consultants was born from a vision to empower Kenyan entrepreneurs. We saw the hurdles businesses face—complex registrations, weak branding, and limited digital presence—and set out to simplify these challenges.</p>
+                        <p class="text-gray-600">With expertise in company registration, graphic design, web development, and digital marketing, our team delivers tailored solutions that drive growth. We’re proud to have helped over 500 businesses across Kenya establish and thrive in competitive markets.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Our Mission -->
+        <!-- Our Mission & Vision -->
         <section class="py-20 bg-gray-50">
             <div class="container mx-auto px-4">
                 <div class="text-center mb-16">
                     <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Mission & Vision</h2>
-                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">Empowering Kenyan businesses with seamless solutions and innovative strategies.</p>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">Guiding Kenyan businesses to success with innovative and reliable solutions.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="bg-white p-6 rounded-lg shadow-md">
                         <h3 class="text-xl font-semibold text-gray-900 mb-3">Mission</h3>
-                        <p class="text-gray-600">To provide comprehensive, affordable, and efficient services that simplify business registration, enhance branding, and boost digital presence for Kenyan entrepreneurs.</p>
+                        <p class="text-gray-600">To deliver affordable, efficient, and comprehensive services that simplify business setup, enhance branding, and amplify digital presence for Kenyan entrepreneurs.</p>
                     </div>
                     <div class="bg-white p-6 rounded-lg shadow-md">
                         <h3 class="text-xl font-semibold text-gray-900 mb-3">Vision</h3>
-                        <p class="text-gray-600">To be the leading consultancy in Kenya, transforming businesses into market leaders through innovative solutions and exceptional service.</p>
+                        <p class="text-gray-600">To be Kenya’s top consultancy, transforming businesses into market leaders through creativity, expertise, and exceptional service.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Team -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Meet Our Team</h2>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">Our dedicated experts bring years of experience to help your business succeed.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                        <img src="images/ceo.png" alt="Edwin Kimemia, Founder" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Edwin Kimemia</h3>
+                        <p class="text-gray-600 mb-2">Founder & CEO</p>
+                        <p class="text-gray-600">With over 10 years in business consultancy, Edwin leads Astra with a passion for empowering Kenyan entrepreneurs.</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                        <img src="images/ceo2.png" alt="Sarah Wanjiku, Creative Director" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Sarah Wanjiku</h3>
+                        <p class="text-gray-600 mb-2">Creative Director</p>
+                        <p class="text-gray-600">Sarah oversees our graphic design and branding projects, delivering creative solutions that stand out.</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                        <img src="images/ceo3.png" alt="Daniel Otieno, Digital Lead" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Daniel Otieno</h3>
+                        <p class="text-gray-600 mb-2">Digital Lead</p>
+                        <p class="text-gray-600">Daniel drives our web design and digital marketing efforts, ensuring businesses shine online.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Values -->
+        <section class="py-20 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Core Values</h2>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">The principles that guide our work and commitment to our clients.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <i class="ri-lightbulb-line ri-2x text-primary mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Innovation</h3>
+                        <p class="text-gray-600">We embrace creativity to deliver cutting-edge solutions that set your business apart.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <i class="ri-shield-check-line ri-2x text-primary mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Integrity</h3>
+                        <p class="text-gray-600">We operate with transparency and honesty, building trust with every client.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <i class="ri-team-line ri-2x text-primary mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Collaboration</h3>
+                        <p class="text-gray-600">We partner closely with clients to understand and achieve their unique goals.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design Gallery -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Design Showcase</h2>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">A glimpse of our graphic and web design projects, crafted for Kenyan businesses.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Graphic Design: Logo -->
+                    <div class="relative rounded-lg shadow-md overflow-hidden">
+                        <img src="images/logo.png" alt="TechVision Logo Design" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="overlay">
+                            <div class="text-white text-center">
+                                <h3 class="text-lg font-semibold">TechVision Logo</h3>
+                                <p class="text-sm">Graphic Design</p>
+                                <a href="portfolio-graphic.html" class="text-secondary font-medium hover:underline">View More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Graphic Design: Branding -->
+                    <div class="relative rounded-lg shadow-md overflow-hidden">
+                        <img src="images/boutique.png" alt="Bloom Boutique Branding" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="overlay">
+                            <div class="text-white text-center">
+                                <h3 class="text-lg font-semibold">Bloom Boutique Branding</h3>
+                                <p class="text-sm">Graphic Design</p>
+                                <a href="portfolio-graphic.html" class="text-secondary font-medium hover:underline">View More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Graphic Design: Brochure -->
+                    <div class="relative rounded-lg shadow-md overflow-hidden">
+                        <img src="images/bronchure.png" alt="Savanna Tours Brochure" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="overlay">
+                            <div class="text-white text-center">
+                                <h3 class="text-lg font-semibold">Savanna Tours Brochure</h3>
+                                <p class="text-sm">Graphic Design</p>
+                                <a href="portfolio-graphic.html" class="text-secondary font-medium hover:underline">View More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Graphic Design: Social Media -->
+                    <div class="relative rounded-lg shadow-md overflow-hidden">
+                        <img src="images/social.png" alt="Trendy Threads Social Media Graphics" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="overlay">
+                            <div class="text-white text-center">
+                                <h3 class="text-lg font-semibold">Trendy Threads Social Media</h3>
+                                <p class="text-sm">Graphic Design</p>
+                                <a href="portfolio-graphic.html" class="text-secondary font-medium hover:underline">View More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Web Design: TechVision Website -->
+                    <div class="relative rounded-lg shadow-md overflow-hidden">
+                        <img src="images/ecomm.png" alt="TechVision Website Design" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="overlay">
+                            <div class="text-white text-center">
+                                <h3 class="text-lg font-semibold">TechVision Website</h3>
+                                <p class="text-sm">Web Design</p>
+                                <a href="portfolio-web.html" class="text-secondary font-medium hover:underline">View More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Web Design: Bloom Boutique Website -->
+                    <div class="relative rounded-lg shadow-md overflow-hidden">
+                        <img src="images/boutique.png" alt="Bloom Boutique Website Design" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="overlay">
+                            <div class="text-white text-center">
+                                <h3 class="text-lg font-semibold">Bloom Boutique Website</h3>
+                                <p class="text-sm">Web Design</p>
+                                <a href="portfolio-web.html" class="text-secondary font-medium hover:underline">View More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Graphic Design: Packaging -->
+                    <div class="relative rounded-lg shadow-md overflow-hidden">
+                        <img src="images/bag.png" alt="Kipepeo Coffee Packaging" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="overlay">
+                            <div class="text-white text-center">
+                                <h3 class="text-lg font-semibold">Kipepeo Coffee Packaging</h3>
+                                <p class="text-sm">Graphic Design</p>
+                                <a href="portfolio-graphic.html" class="text-secondary font-medium hover:underline">View More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Graphic Design: Event Posters -->
+                    <div class="relative rounded-lg shadow-md overflow-hidden">
+                        <img src="images/graphic.png" alt="Nairobi Tech Summit Posters" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="overlay">
+                            <div class="text-white text-center">
+                                <h3 class="text-lg font-semibold">Nairobi Tech Summit Posters</h3>
+                                <p class="text-sm">Graphic Design</p>
+                                <a href="portfolio-graphic.html" class="text-secondary font-medium hover:underline">View More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-12">
+                    <a href="portfolio-graphic.html" class="bg-primary text-white px-6 py-3 !rounded-button font-medium hover:bg-primary/90 transition mr-4">View Graphic Portfolio</a>
+                    <a href="portfolio-web.html" class="bg-white text-primary border border-primary px-6 py-3 !rounded-button font-medium hover:bg-gray-50 transition">View Web Portfolio</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Client Success Stories -->
+        <section class="py-20 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Client Success Stories</h2>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">Hear from businesses we’ve helped grow across Kenya.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="flex items-center text-secondary mb-4">
+                            <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                        </div>
+                        <p class="text-gray-600 mb-4">“Astra’s company registration service was seamless, and their branding elevated our identity.”</p>
+                        <p class="text-gray-600 italic">– James Mwangi, TechVision Solutions</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="flex items-center text-secondary mb-4">
+                            <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                        </div>
+                        <p class="text-gray-600 mb-4">“Their web design and SEO services transformed our online presence.”</p>
+                        <p class="text-gray-600 italic">– Sarah Odhiambo, Bloom Boutique</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="flex items-center text-secondary mb-4">
+                            <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                        </div>
+                        <p class="text-gray-600 mb-4">“Astra’s brochure design drove record bookings for our tours.”</p>
+                        <p class="text-gray-600 italic">– Daniel Kimathi, Savanna Tours</p>
                     </div>
                 </div>
             </div>
@@ -160,9 +407,12 @@
         <!-- CTA Banner -->
         <section class="py-16 bg-gradient-to-r from-primary to-blue-800 text-white">
             <div class="container mx-auto px-4 text-center">
-                <h2 class="text-3xl font-bold mb-6">Ready to Grow Your Business?</h2>
-                <p class="text-lg mb-8 max-w-2xl mx-auto">Partner with Astra Consultants for expert solutions tailored to your needs.</p>
-                <a href="booking.html" class="bg-white text-primary px-6 py-3 !rounded-button font-medium hover:bg-gray-100 transition">Book a Consultation</a>
+                <h2 class="text-3xl font-bold mb-6">Partner with Astra Consultants</h2>
+                <p class="text-lg mb-8 max-w-2xl mx-auto">Let us help you grow your business with expert registration, design, and digital solutions.</p>
+                <div class="flex justify-center space-x-4">
+                    <a href="booking.html" class="bg-white text-primary px-6 py-3 !rounded-button font-medium hover:bg-gray-100 transition animate-pulse-slow">Book a Consultation</a>
+                    <a href="contact.html" class="bg-transparent border border-white text-white px-6 py-3 !rounded-button font-medium hover:bg-white hover:text-primary transition">Contact Us</a>
+                </div>
             </div>
         </section>
     </main>
@@ -173,20 +423,20 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
                 <div>
                     <div class="flex items-center mb-6">
-                        <img src="images/astra3.png" alt="logo" class="h-10">
+                        <img src="images/astra3.png" alt="Astra Consultants Logo" class="h-10">
                     </div>
                     <p class="text-gray-400 mb-6">Your trusted partner for business registration, branding, and growth strategies in Kenya.</p>
                     <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition">
+                        <a href="https://facebook.com/astraconsultants" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition" aria-label="Astra Consultants on Facebook">
                             <i class="ri-facebook-fill"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition">
+                        <a href="https://twitter.com/astraconsultants" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition" aria-label="Astra Consultants on Twitter">
                             <i class="ri-twitter-fill"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition">
+                        <a href="https://instagram.com/astraconsultants" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition" aria-label="Astra Consultants on Instagram">
                             <i class="ri-instagram-fill"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition">
+                        <a href="https://linkedin.com/company/astraconsultants" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition" aria-label="Astra Consultants on LinkedIn">
                             <i class="ri-linkedin-fill"></i>
                         </a>
                     </div>
@@ -197,9 +447,10 @@
                         <li><a href="index.html" class="text-gray-400 hover:text-white transition">Home</a></li>
                         <li><a href="about.html" class="text-gray-400 hover:text-white transition">About Us</a></li>
                         <li><a href="services.html" class="text-gray-400 hover:text-white transition">Services</a></li>
+                        <li><a href="portfolio-graphic.html" class="text-gray-400 hover:text-white transition">Graphic Portfolio</a></li>
+                        <li><a href="portfolio-web.html" class="text-gray-400 hover:text-white transition">Web Portfolio</a></li>
                         <li><a href="blog.html" class="text-gray-400 hover:text-white transition">Blog</a></li>
                         <li><a href="contact.html" class="text-gray-400 hover:text-white transition">Contact</a></li>
-                        <li><a href="booking.html" class="text-gray-400 hover:text-white transition">Book a Consultation</a></li>
                     </ul>
                 </div>
                 <div>
@@ -226,13 +477,13 @@
                             <div class="w-5 h-5 flex items-center justify-center mt-1 mr-3">
                                 <i class="ri-phone-line text-primary"></i>
                             </div>
-                            <span class="text-gray-400">+254 715 135 141</span>
+                            <a href="tel:+254715135141" class="text-gray-400 hover:text-white transition">+254 715 135 141</a>
                         </li>
                         <li class="flex items-start">
                             <div class="w-5 h-5 flex items-center justify-center mt-1 mr-3">
                                 <i class="ri-mail-line text-primary"></i>
                             </div>
-                            <span class="text-gray-400">kimemiaedwin1@gmail.com</span>
+                            <a href="mailto:kimemiaedwin1@gmail.com" class="text-gray-400 hover:text-white transition">kimemiaedwin1@gmail.com</a>
                         </li>
                         <li class="flex items-start">
                             <div class="w-5 h-5 flex items-center justify-center mt-1 mr-3">
@@ -257,12 +508,13 @@
     </footer>
 
     <!-- WhatsApp Button -->
-    <a href="https://wa.me/254715135141?text=Hello%20Astra%20Consultants,%20I'm%20interested%20in%20your%20services." class="whatsapp-button w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition">
+    <a href="https://wa.me/254715135141?text=Hello%20Astra%20Consultants,%20I%27m%20interested%20in%20your%20services." class="whatsapp-button w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition" aria-label="Contact Astra Consultants via WhatsApp">
         <i class="ri-whatsapp-fill ri-xl text-white"></i>
     </a>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Menu Toggle
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
             mobileMenuButton.addEventListener('click', function() {
@@ -270,6 +522,26 @@
                 mobileMenuButton.innerHTML = mobileMenu.classList.contains('hidden') ?
                     '<i class="ri-menu-line ri-lg"></i>' : '<i class="ri-close-line ri-lg"></i>';
             });
+
+            // Dynamic Greeting
+            const greetingElement = document.getElementById('dynamic-greeting');
+            const hour = new Date().getHours();
+            let greeting = hour < 12 ? 'Good Morning!' : hour < 18 ? 'Good Afternoon!' : 'Good Evening!';
+            greetingElement.innerHTML = `${greeting} About Astra Consultants`;
+
+            // Countdown Timer
+            const countdownElement = document.getElementById('countdown-timer');
+            let timeLeft = 24 * 60 * 60; // 24 hours in seconds
+            function updateTimer() {
+                const hours = Math.floor(timeLeft / 3600);
+                const minutes = Math.floor((timeLeft % 3600) / 60);
+                const seconds = timeLeft % 60;
+                countdownElement.textContent = `Free Consultation Ends in ${hours}h ${minutes}m ${seconds}s`;
+                timeLeft--;
+                if (timeLeft < 0) timeLeft = 24 * 60 * 60;
+            }
+            updateTimer();
+            setInterval(updateTimer, 1000);
         });
     </script>
 </body>
