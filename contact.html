@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Astra Consultants - Business Services in Kenya</title>
-    <meta name="description" content="Contact Astra Consultants for expert company registration, branding, web design, digital marketing, and business planning in Kenya. Get a response within 24 hours!">
-    <meta name="keywords" content="contact Astra Consultants, company registration Kenya, branding agency Nairobi, web design Kenya, SEO services Kenya, business planning Kenya, tax compliance Kenya">
+    <meta name="description" content="Contact Astra Consultants for company registration, branding, web design, digital marketing, and business planning in Kenya. Get a response within 24 hours!">
+    <meta name="keywords" content="contact Astra Consultants, business consultant contact Kenya, company registration Nairobi, branding agency Kenya, web design Kenya, SEO services Kenya, business planning Kenya">
     <meta name="author" content="Astra Consultants">
     <meta name="robots" content="index, follow">
     <link rel="icon" type="image/png" href="images/favicon.png">
@@ -31,12 +31,12 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
         h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; }
-        .whatsapp-button {
+        .whatsapp-button, .live-chat-button {
             position: fixed;
-            bottom: 24px;
-            right: 24px;
             z-index: 999;
         }
+        .whatsapp-button { bottom: 24px; right: 24px; }
+        .live-chat-button { bottom: 24px; right: 88px; }
         .animate-pulse-slow {
             animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
@@ -71,36 +71,61 @@
             background: #554998;
             transition: width 0.3s ease-in-out;
         }
+        .hero-section {
+            
+            background-size: cover;
+            background-position: center;
+        }
+        details summary::-webkit-details-marker { display: none; }
+        details summary {
+            list-style: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        details summary::after {
+            content: '\25BC';
+            font-size: 0.8rem;
+            transition: transform 0.3s;
+        }
+        details[open] summary::after { transform: rotate(180deg); }
     </style>
     <!-- Structured Data for SEO -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Astra Consultants",
-        "url": "https://astraconsultants.co.ke",
-        "logo": "https://astraconsultants.co.ke/images/astra2.png",
-        "contactPoint": [
-            {
-                "@type": "ContactPoint",
-                "telephone": "+254715135141",
-                "contactType": "Customer Service",
-                "email": "kimemiaedwin1@gmail.com",
-                "areaServed": "KE",
-                "availableLanguage": "English"
-            }
-        ],
-        "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Nairobi",
-            "addressCountry": "KE"
-        },
-        "sameAs": [
-            "https://facebook.com/astraconsultants",
-            "https://twitter.com/astraconsultants",
-            "https://instagram.com/astraconsultants",
-            "https://linkedin.com/company/astraconsultants"
-        ]
+        "@type": "ContactPage",
+        "name": "Contact Astra Consultants",
+        "description": "Contact Astra Consultants for expert business solutions in Kenya, including company registration, branding, web design, and digital marketing.",
+        "url": "https://astraconsultants.co.ke/contact.html",
+        "mainEntity": {
+            "@type": "Organization",
+            "name": "Astra Consultants",
+            "url": "https://astraconsultants.co.ke",
+            "logo": "https://astraconsultants.co.ke/images/astra2.png",
+            "contactPoint": [
+                {
+                    "@type": "ContactPoint",
+                    "telephone": "+254715135141",
+                    "contactType": "Customer Service",
+                    "email": "kimemiaedwin1@gmail.com",
+                    "areaServed": "KE",
+                    "availableLanguage": "English"
+                }
+            ],
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Nairobi",
+                "addressCountry": "KE"
+            },
+            "sameAs": [
+                "https://facebook.com/astraconsultants",
+                "https://twitter.com/astraconsultants",
+                "https://instagram.com/astraconsultants",
+                "https://linkedin.com/company/astraconsultants"
+            ]
+        }
     }
     </script>
 </head>
@@ -176,43 +201,50 @@
     <!-- Main Content -->
     <main class="pt-16">
         <!-- Hero Section -->
-        <section class="bg-gray-100 text-gray-900 py-20 relative overflow-hidden">
+        <section class="hero-section py-24 text-gray-700">
             <div class="container mx-auto px-4 text-center">
                 <h1 class="text-4xl md:text-5xl font-bold mb-4">Get in Touch Today!</h1>
-                <p class="text-lg mb-6 max-w-3xl mx-auto">Contact Astra Consultants for expert business solutions. We respond within 24 hours – don’t miss out!</p>
+                <p class="text-lg mb-6 max-w-3xl mx-auto">Reach out to Astra Consultants for expert business solutions. We respond within 24 hours – trusted by 500+ Kenyan businesses!</p>
                 <div class="flex justify-center items-center mb-6">
                     <span class="text-sm bg-secondary text-gray-900 px-3 py-1 rounded-full mr-2">Limited Response Time!</span>
                     <span class="text-sm" id="countdown-timer"></span>
                 </div>
-                <a href="#contact-form" class="bg-white text-primary px-8 py-3 !rounded-button font-medium hover:bg-gray-100 transition animate-pulse-slow">Send Message</a>
+                <a href="#contact-form" class="bg-primary text-white px-8 py-3 !rounded-button font-medium hover:bg-primary/90 transition animate-pulse-slow">Send Message</a>
             </div>
-            <img src="images/office.png" alt="Astra Consultants Office" class="absolute bottom-0 right-0 w-1/3 opacity-20 md:opacity-100 md:w-1/4 object-cover">
         </section>
 
         <!-- Contact Form & Info -->
         <section id="contact-form" class="py-20 bg-white">
             <div class="container mx-auto px-4">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                     <div>
                         <h2 class="text-2xl font-bold text-gray-900 mb-4">Send Us a Message</h2>
-                        <p class="text-gray-600 mb-6">Fill out the form below, and our team will get back to you within 24 hours.</p>
+                        <p class="text-gray-600 mb-6">Fill out the form, and our team will respond within 24 hours.</p>
                         <div class="progress-bar mb-6">
                             <div class="progress-bar-fill" style="width: 50%"></div>
                         </div>
-                        <form id="contact-form" class="space-y-6">
+                        <form id="contact-form" class="space-y-6" aria-label="Contact Astra Consultants">
                             <!-- Step 1: Basic Info -->
                             <div class="form-step" id="step-1">
                                 <div>
                                     <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
-                                    <input type="text" id="name" class="w-full p-3 border border-gray-300 rounded-lg" required>
+                                    <input type="text" id="name" class="w-full p-3 border border-gray-300 rounded-lg" required aria-required="true" aria-describedby="name-desc">
+                                    <p id="name-desc" class="sr-only">Enter your full name.</p>
                                 </div>
                                 <div>
                                     <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                                    <input type="email" id="email" class="w-full p-3 border border-gray-300 rounded-lg" required>
+                                    <input type="email" id="email" class="w-full p-3 border border-gray-300 rounded-lg" required aria-required="true" aria-describedby="email-desc">
+                                    <p id="email-desc" class="sr-only">Enter a valid email address.</p>
                                 </div>
                                 <div>
                                     <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                                    <input type="tel" id="phone" class="w-full p-3 border border-gray-300 rounded-lg" required>
+                                    <input type="tel" id="phone" class="w-full p-3 border border-gray-300 rounded-lg" required aria-required="true" aria-describedby="phone-desc">
+                                    <p id="phone-desc" class="sr-only">Enter your phone number, e.g., +254 715 135 141.</p>
+                                </div>
+                                <div>
+                                    <label for="company" class="block text-sm font-medium text-gray-700 mb-1">Company Name (Optional)</label>
+                                    <input type="text" id="company" class="w-full p-3 border border-gray-300 rounded-lg" aria-describedby="company-desc">
+                                    <p id="company-desc" class="sr-only">Enter your company name, if applicable.</p>
                                 </div>
                                 <button type="button" class="w-full bg-primary text-white px-6 py-3 !rounded-button font-medium hover:bg-primary/90 transition" onclick="nextStep(2)">Next</button>
                             </div>
@@ -220,7 +252,7 @@
                             <div class="form-step hidden" id="step-2">
                                 <div>
                                     <label for="service" class="block text-sm font-medium text-gray-700 mb-1">Interested Service</label>
-                                    <select id="service" class="w-full p-3 border border-gray-300 rounded-lg" required>
+                                    <select id="service" class="w-full p-3 border border-gray-300 rounded-lg" required aria-required="true" aria-describedby="service-desc">
                                         <option value="">Select a Service</option>
                                         <option value="Limited Company">Limited Company Registration</option>
                                         <option value="Sole Proprietorship">Sole Proprietorship Registration</option>
@@ -232,28 +264,53 @@
                                         <option value="Reallocation of Shares">Reallocation of Shares</option>
                                         <option value="NCA Registration">NCA Registration (NCA 2-8)</option>
                                         <option value="Change of Directors">Change of Directors</option>
+                                        <option value="NGO Registration">NGO Registration</option>
+                                        <option value="Trademark Registration">Trademark Registration</option>
                                         <option value="Logo Designs">Logo Design</option>
                                         <option value="Letterheads">Letterheads</option>
                                         <option value="Company Profiles">Company Profiles</option>
                                         <option value="Brochures & Business Cards">Brochures & Business Cards</option>
+                                        <option value="Branding">Branding</option>
+                                        <option value="Advertising Design">Advertising Design</option>
+                                        <option value="Motion Graphics">Motion Graphics</option>
+                                        <option value="Packaging Design">Packaging Design</option>
                                         <option value="KRA Returns">KRA Returns</option>
                                         <option value="Tax Compliance">Tax Compliance</option>
+                                        <option value="Tax Planning">Tax Planning</option>
+                                        <option value="VAT Consulting">VAT Consulting</option>
                                         <option value="Website Design">Website Design</option>
                                         <option value="SEO">SEO Services</option>
                                         <option value="Digital Marketing">Digital Marketing</option>
-                                        <option value="Branding">Branding</option>
                                         <option value="Social Media Management">Social Media Management</option>
                                         <option value="Content Creation">Content Creation</option>
                                         <option value="Email Marketing">Email Marketing</option>
+                                        <option value="Social Media Advertising">Social Media Advertising</option>
+                                        <option value="E-Commerce Website Development">E-Commerce Website Development</option>
+                                        <option value="Mobile App Development">Mobile App Development</option>
+                                        <option value="E-Commerce SEO">E-Commerce SEO</option>
+                                        <option value="Industry-Specific Licensing">Industry-Specific Licensing</option>
+                                        <option value="GDPR Compliance">GDPR Compliance</option>
+                                        <option value="Contract Drafting">Contract Drafting</option>
                                         <option value="Business Plan Development">Business Plan Development</option>
                                         <option value="Market Research">Market Research</option>
                                         <option value="Corporate Training">Corporate Training</option>
                                         <option value="Financial Consulting">Financial Consulting</option>
+                                        <option value="Data Analytics">Data Analytics</option>
+                                        <option value="Franchise Development">Franchise Development</option>
                                     </select>
+                                    <p id="service-desc" class="sr-only">Select the service you are interested in.</p>
                                 </div>
                                 <div>
                                     <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Your Message</label>
-                                    <textarea id="message" class="w-full p-3 border border-gray-300 rounded-lg" rows="5" required></textarea>
+                                    <textarea id="message" class="w-full p-3 border border-gray-300 rounded-lg" rows="5" required aria-required="true" aria-describedby="message-desc"></textarea>
+                                    <p id="message-desc" class="sr-only">Enter your message or inquiry details.</p>
+                                </div>
+                                <div>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" id="consent" class="mr-2" required aria-required="true" aria-describedby="consent-desc">
+                                        <span class="text-sm text-gray-600">I agree to the <a href="#" class="text-primary hover:underline">Privacy Policy</a> and consent to my data being processed.</span>
+                                    </label>
+                                    <p id="consent-desc" class="sr-only">Check to agree to the privacy policy.</p>
                                 </div>
                                 <div class="flex space-x-4">
                                     <button type="button" class="w-full bg-gray-300 text-gray-700 px-6 py-3 !rounded-button font-medium hover:bg-gray-400 transition" onclick="prevStep(1)">Back</button>
@@ -262,7 +319,7 @@
                             </div>
                         </form>
                         <div class="text-center mt-6">
-                            <p class="text-gray-600"><i class="ri-shield-check-line text-primary mr-2"></i>100% Satisfaction Guarantee</p>
+                            <p class="text-gray-600"><i class="ri-shield-check-line text-primary mr-2"></i>24-Hour Response Guarantee</p>
                             <p class="text-gray-600"><i class="ri-group-line text-primary mr-2"></i>Trusted by 500+ Kenyan Businesses</p>
                         </div>
                     </div>
@@ -295,15 +352,73 @@
                             </li>
                         </ul>
                         <div>
-                            <iframe class="w-full h-64 rounded-lg" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.815496779755!2d36.82194631531794!3d-1.283253298693139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMcKwMTYnNTkuNyJTIDM2wrA0OScxMS4wIkU!5e0!3m2!1sen!2ske!4v1634567890123" allowfullscreen="" loading="lazy" title="Astra Consultants Location"></iframe>
+                            <iframe class="w-full h-64 rounded-lg" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.815496779755!2d36.82194631531794!3d-1.283253298693139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMcKwMTYnNTkuNyJTIDM2wrA0OScxMS4wIkU!5e0!3m2!1sen!2ske!4v1634567890123" allowfullscreen="" loading="lazy" title="Astra Consultants Location in Nairobi"></iframe>
+                        </div>
+                        <div class="mt-6">
+                            <img src="images/office.png" alt="Astra Consultants Nairobi Office" class="w-full h-48 object-cover rounded-lg" loading="lazy">
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Team Contact Points -->
+        <section id="team" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center">Meet Our Contact Team</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <img src="https://readdy.ai/api/search-image?query=professional%20Kenyan%20business%20consultant%2C%20male%2C%20blue%20suit&width=300&height=300&seq=1" alt="Edwin Kimemia, Sales Lead" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover" loading="lazy">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Edwin Kimemia</h3>
+                        <p class="text-gray-600 mb-2">Sales Lead</p>
+                        <p class="text-gray-600 mb-4">For inquiries about our services.</p>
+                        <a href="mailto:kimemiaedwin1@gmail.com" class="text-primary font-medium hover:underline">Email Edwin</a>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <img src="https://readdy.ai/api/search-image?query=professional%20Kenyan%20customer%20support%2C%20female%2C%20modern%20office&width=300&height=300&seq=2" alt="Sarah Wanjiku, Support Specialist" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover" loading="lazy">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Sarah Wanjiku</h3>
+                        <p class="text-gray-600 mb-2">Support Specialist</p>
+                        <p class="text-gray-600 mb-4">For assistance with ongoing projects.</p>
+                        <a href="mailto:support@astraconsultants.co.ke" class="text-primary font-medium hover:underline">Email Sarah</a>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <img src="https://readdy.ai/api/search-image?query=professional%20Kenyan%20business%20consultant%2C%20male%2C%20tech%20office&width=300&height=300&seq=3" alt="Daniel Otieno, Technical Lead" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover" loading="lazy">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Daniel Otieno</h3>
+                        <p class="text-gray-600 mb-2">Technical Lead</p>
+                        <p class="text-gray-600 mb-4">For web and digital service queries.</p>
+                        <a href="mailto:tech@astraconsultants.co.ke" class="text-primary font-medium hover:underline">Email Daniel</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-20 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center">Frequently Asked Questions</h2>
+                <div class="space-y-4 max-w-3xl mx-auto">
+                    <details class="bg-gray-50 p-4 rounded-lg">
+                        <summary class="text-lg font-semibold text-gray-900">How quickly will I get a response?</summary>
+                        <p class="text-gray-600 mt-2">We guarantee a response within 24 hours, often sooner, during business hours (Mon-Fri, 8 AM-6 PM).</p>
+                    </details>
+                    <details class="bg-gray-50 p-4 rounded-lg">
+                        <summary class="text-lg font-semibold text-gray-900">What services do you offer?</summary>
+                        <p class="text-gray-600 mt-2">We provide company registration, graphic design, web design, digital marketing, tax compliance, e-commerce solutions, legal consulting, and business planning. <a href="services.html" class="text-primary hover:underline">View all services</a>.</p>
+                    </details>
+                    <details class="bg-gray-50 p-4 rounded-lg">
+                        <summary class="text-lg font-semibold text-gray-900">How do I book a consultation?</summary>
+                        <p class="text-gray-600 mt-2">Use our <a href="booking.html" class="text-primary hover:underline">booking form</a> to schedule a free consultation, or contact us via this page.</p>
+                    </details>
+                    <details class="bg-gray-50 p-4 rounded-lg">
+                        <summary class="text-lg font-semibold text-gray-900">Do you serve businesses outside Nairobi?</summary>
+                        <p class="text-gray-600 mt-2">Yes, we serve clients across Kenya and can assist remotely for most services.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
         <!-- Testimonials -->
-        <section class="py-20 bg-gray-50">
+        <section id="testimonials" class="py-20 bg-gray-50">
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center">What Our Clients Say</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -347,6 +462,30 @@
             </div>
         </section>
 
+        <!-- Trust Signals -->
+        <section id="trust" class="py-20 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center">Why Trust Astra Consultants?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-gray-50 p-6 rounded-lg text-center">
+                        <i class="ri-award-line ri-2x text-primary mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Certified Expertise</h3>
+                        <p class="text-gray-600">Our team holds certifications in business consulting and digital marketing.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg text-center">
+                        <i class="ri-time-line ri-2x text-primary mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">10+ Years Experience</h3>
+                        <p class="text-gray-600">Over a decade of helping Kenyan businesses succeed.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg text-center">
+                        <i class="ri-group-line ri-2x text-primary mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">500+ Clients Served</h3>
+                        <p class="text-gray-600">Trusted by startups, SMEs, and enterprises across Kenya.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- CTA Banner -->
         <section class="py-16 bg-gradient-to-r from-primary to-blue-800 text-white">
             <div class="container mx-auto px-4 text-center">
@@ -369,26 +508,36 @@
         </div>
     </div>
 
+    <!-- Live Chat Button (Placeholder) -->
+    <a href="#live-chat" class="live-chat-button w-14 h-14 bg-primary rounded-full flex items-center justify-center shadow-lg hover:bg-primary/90 transition" aria-label="Start Live Chat with Astra Consultants">
+        <i class="ri-chat-3-fill ri-xl text-white"></i>
+    </a>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/254715135141?text=Hello%20Astra%20Consultants,%20I%27m%20interested%20in%20your%20services." class="whatsapp-button w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition" aria-label="Contact Astra Consultants via WhatsApp">
+        <i class="ri-whatsapp-fill ri-xl text-white"></i>
+    </a>
+
+    <!-- Footer -->
     <footer class="bg-gray-900 text-white pt-16 pb-8">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
                 <div>
                     <div class="flex items-center mb-6">
-                        <img src="images/astra3.png" alt="logo" class="h-10"> 
-                        
+                        <img src="images/astra3.png" alt="Astra Consultants Logo" class="h-10">
                     </div>
                     <p class="text-gray-400 mb-6">Your trusted partner for business registration, branding, and growth strategies in Kenya.</p>
                     <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition">
+                        <a href="https://facebook.com/astraconsultants" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition" aria-label="Astra Consultants on Facebook">
                             <i class="ri-facebook-fill"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition">
+                        <a href="https://twitter.com/astraconsultants" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition" aria-label="Astra Consultants on Twitter">
                             <i class="ri-twitter-fill"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition">
+                        <a href="https://instagram.com/astraconsultants" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition" aria-label="Astra Consultants on Instagram">
                             <i class="ri-instagram-fill"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition">
+                        <a href="https://linkedin.com/company/astraconsultants" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition" aria-label="Astra Consultants on LinkedIn">
                             <i class="ri-linkedin-fill"></i>
                         </a>
                     </div>
@@ -412,8 +561,8 @@
                         <li><a href="services.html#design" class="text-gray-400 hover:text-white transition">Graphic Design</a></li>
                         <li><a href="services.html#tax" class="text-gray-400 hover:text-white transition">Tax Compliance</a></li>
                         <li><a href="services.html#digital" class="text-gray-400 hover:text-white transition">Web Design</a></li>
-                        <li><a href="services.html#digital" class="text-gray-400 hover:text-white transition">SEO & Marketing</a></li>
-                        <li><a href="services.html#digital" class="text-gray-400 hover:text-white transition">Branding</a></li>
+                        <li><a href="services.html#ecommerce" class="text-gray-400 hover:text-white transition">E-Commerce Solutions</a></li>
+                        <li><a href="services.html#legal" class="text-gray-400 hover:text-white transition">Legal Consulting</a></li>
                     </ul>
                 </div>
                 <div>
@@ -429,13 +578,13 @@
                             <div class="w-5 h-5 flex items-center justify-center mt-1 mr-3">
                                 <i class="ri-phone-line text-primary"></i>
                             </div>
-                            <span class="text-gray-400">+254 715 135 141</span>
+                            <a href="tel:+254715135141" class="text-gray-400 hover:text-white transition">+254 715 135 141</a>
                         </li>
                         <li class="flex items-start">
                             <div class="w-5 h-5 flex items-center justify-center mt-1 mr-3">
                                 <i class="ri-mail-line text-primary"></i>
                             </div>
-                            <span class="text-gray-400">kimemiaedwin1@gmail.com</span>
+                            <a href="mailto:kimemiaedwin1@gmail.com" class="text-gray-400 hover:text-white transition">kimemiaedwin1@gmail.com</a>
                         </li>
                         <li class="flex items-start">
                             <div class="w-5 h-5 flex items-center justify-center mt-1 mr-3">
@@ -458,12 +607,6 @@
             </div>
         </div>
     </footer>
-
-
-    <!-- WhatsApp Button -->
-    <a href="https://wa.me/254715135141?text=Hello%20Astra%20Consultants,%20I%27m%20interested%20in%20your%20services." class="whatsapp-button w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition">
-        <i class="ri-whatsapp-fill ri-xl text-white"></i>
-    </a>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -515,29 +658,42 @@
                 updateProgress();
             };
 
-            // Contact Form Validation
+            // Contact Form Validation and Submission
             document.getElementById('contact-form').addEventListener('submit', function(e) {
                 e.preventDefault();
                 const email = document.getElementById('email').value;
                 const name = document.getElementById('name').value;
                 const phone = document.getElementById('phone').value;
+                const company = document.getElementById('company').value;
                 const service = document.getElementById('service').value;
                 const message = document.getElementById('message').value;
+                const consent = document.getElementById('consent').checked;
 
                 if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
                     alert('Please enter a valid email address.');
                     return;
                 }
-                if (!name || !phone || !service || !message) {
-                    alert('Please fill all required fields.');
+                if (!name || !phone || !service || !message || !consent) {
+                    alert('Please fill all required fields and agree to the privacy policy.');
                     return;
                 }
+
+                // Simulate Backend Submission
+                console.log('Form Submitted:', { name, email, phone, company, service, message });
+                // TODO: Replace with actual API call, e.g., fetch('/api/contact', { method: 'POST', body: JSON.stringify({ name, email, phone, company, service, message }) })
 
                 // Show Confirmation Modal
                 document.getElementById('confirmation-modal').style.display = 'flex';
                 this.reset();
                 currentStep = 1;
                 updateProgress();
+            });
+
+            // Close Modal on Click Outside
+            document.getElementById('confirmation-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.style.display = 'none';
+                }
             });
         });
     </script>
